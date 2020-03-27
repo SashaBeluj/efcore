@@ -6960,7 +6960,13 @@ WHERE (
             }
 
             AssertSql(
-                @"SELECT [c].[Id], [c].[Name], [c0].[Id], [c0].[CustomerId], [c0].[Name]
+    @"SELECT [c].[Id], [c].[Name], CASE
+    WHEN [c0].[Id] IS NOT NULL THEN [c0].[Id]
+    ELSE NULL
+END AS [CustomerMembershipId], CASE
+    WHEN [c0].[Id] IS NOT NULL THEN [c0].[Name]
+    ELSE N''
+END AS [CustomerMembershipName]
 FROM [Customers] AS [c]
 LEFT JOIN [CustomerMemberships] AS [c0] ON [c].[Id] = [c0].[CustomerId]");
         }
