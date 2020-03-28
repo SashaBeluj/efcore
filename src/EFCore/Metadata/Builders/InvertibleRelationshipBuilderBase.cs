@@ -15,7 +15,7 @@ namespace Microsoft.EntityFrameworkCore.Metadata.Builders
     /// <summary>
     ///     Base class used for configuring an invertible relationship.
     /// </summary>
-    public abstract class InvertibleRelationshipBuilderBase : IInfrastructure<InternalRelationshipBuilder>
+    public abstract class InvertibleRelationshipBuilderBase : IInfrastructure<InternalForeignKeyBuilder>
     {
         private readonly IReadOnlyList<Property> _foreignKeyProperties;
         private readonly IReadOnlyList<Property> _principalKeyProperties;
@@ -50,7 +50,7 @@ namespace Microsoft.EntityFrameworkCore.Metadata.Builders
         /// </summary>
         [EntityFrameworkInternal]
         protected InvertibleRelationshipBuilderBase(
-            [NotNull] InternalRelationshipBuilder builder,
+            [NotNull] InternalForeignKeyBuilder builder,
             [CanBeNull] InvertibleRelationshipBuilderBase oldBuilder,
             bool inverted = false,
             bool foreignKeySet = false,
@@ -113,12 +113,12 @@ namespace Microsoft.EntityFrameworkCore.Metadata.Builders
         ///     doing so can result in application failures when updating to a new Entity Framework Core release.
         /// </summary>
         [EntityFrameworkInternal]
-        protected virtual InternalRelationshipBuilder Builder { get; [param: NotNull] set; }
+        protected virtual InternalForeignKeyBuilder Builder { get; [param: NotNull] set; }
 
         /// <summary>
         ///     Gets the internal builder being used to configure this relationship.
         /// </summary>
-        InternalRelationshipBuilder IInfrastructure<InternalRelationshipBuilder>.Instance => Builder;
+        InternalForeignKeyBuilder IInfrastructure<InternalForeignKeyBuilder>.Instance => Builder;
 
         /// <summary>
         ///     The foreign key that represents this relationship.
